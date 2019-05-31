@@ -22,7 +22,12 @@ const listen = (ele, e, callback) => {
   if (document.querySelector(ele) !== null) {
     document.querySelector(ele).addEventListener(e, callback);
   }
-}
+};
+
+// queryAll return a real array matching query
+const queryAll = (el, query) => {
+  return [].slice.call(el.querySelectorAll(query));
+};
 
 /**
  * Functions
@@ -79,7 +84,6 @@ const toggleToc = () => {
   document.getElementById('toc').classList.toggle('show-toc');
 }
 
-
 if (header !== null) {
   listen('#menu-btn', "click", toggleMobileMenu);
   listen('#toc-btn', "click", toggleToc);
@@ -100,3 +104,38 @@ if (header !== null) {
     }
   }, 250));
 }
+
+// Tabs
+//
+const setActiveTab = (tab, title) => {
+  queryAll(tab, '.nav-tabs li').forEach(li => {
+    if (li.innerText.trim() == title.trim()) {
+      li.classList.add('active');
+    } else {
+      li.classList.remove('active');
+    }
+  });
+  queryAll(tab, '.tab-content div').forEach(div => {
+    if (div.getAttribute('title') == title) {
+      div.classList.add('active');
+    } else {
+      div.classList.remove('active');
+    }
+  });
+};
+
+const setupTab = (tab) = > {
+  // Set the panel titles.
+  const panes = queryAll(tab, '.tab-pane');
+  const titles = panes.map(pane => '<li><a href="#">' + pane.getAttribute('title') + '</a></li>');
+  const nav = tab.querySelector('.nav-tabs');
+  nav.insertAdjacentHTML('afterbegin', titles.join(''));
+
+  // Setup tab click handling.
+  queryAll(tab, '.nav-tabs li a').forEach(a => a.addEventListener('click', () => setActiveTab(tab, a.innerText)));
+
+  // First tab active by default.
+  setActiveTab(tab, panes[0].getAttribute('title'));
+};
+
+queryAll(document, '.tabs').forEach(tab => setupTab(tab));

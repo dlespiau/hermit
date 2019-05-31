@@ -1,0 +1,44 @@
+@import "predefined.scss";
+
+.tabs > ul.nav-tabs {
+  list-style-type: none;
+  margin: 1em 0;
+  padding: 0px;
+  overflow: hidden;
+  box-shadow: inset 0 -1px 0 $highlight-grey;
+}
+
+.nav-tabs > li {
+  float: left;
+}
+
+.nav-tabs > li > a {
+  color: $highlight-grey;
+  display: block;
+  padding: 5px 10px;
+  font-size: 14px;
+  box-shadow: inset 0 -1px 0 $highlight-grey;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li > a:hover {
+  color: $text;
+  background: transparent;
+  box-shadow: inset 0 -1px 0 $theme;
+}
+.tab-content > .tab-pane {
+  display: none;
+}
+
+.tab-content > .active {
+  display: block;
+}
+
+.tab-content pre {
+  margin: 0px;
+}
+
+.tab-pane {
+  max-height: 30em;
+  overflow: auto;
+  padding: 0px;
+}
