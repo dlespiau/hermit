@@ -132,7 +132,10 @@ const setupTab = (tab) = > {
   nav.insertAdjacentHTML('afterbegin', titles.join(''));
 
   // Setup tab click handling.
-  queryAll(tab, '.nav-tabs li a').forEach(a => a.addEventListener('click', () => setActiveTab(tab, a.innerText)));
+  queryAll(tab, '.nav-tabs li a').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    setActiveTab(tab, a.innerText);
+  }));
 
   // First tab active by default.
   setActiveTab(tab, panes[0].getAttribute('title'));
